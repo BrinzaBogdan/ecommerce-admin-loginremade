@@ -18,7 +18,7 @@ model Store {
 id          String    @id @default(uuid())
 name        String
 userId      String
-//billboards  Billboard[] @relation("StoreToBillboard")
+billboards  Billboard[] @relation("StoreToBillboard")
 //categories  Category[] @relation("StoreToCategory")
 //sizes       Size[] @relation("StoreToSize")
 //colors      Color[] @relation("StoreToColor")
@@ -26,4 +26,17 @@ userId      String
 //orders Order[] @relation("StoreToOrder")
 createdAt   DateTime @default(now())
 updatedAt   DateTime @updatedAt
+}
+
+model Billboard {
+id          String  @id @default(uuid())
+storeId     String
+store       Store   @relation("StoreToBillboard", fields: [storeId], references: [id])
+label       String
+imageUrl    String
+//categories  Category[]
+createdAt   DateTime @default(now())
+updatedAt   DateTime @updatedAt
+
+@@index([storeId])
 }
